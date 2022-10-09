@@ -14,9 +14,10 @@ public class JpaMain {
         EntityTransaction tx = em.getTransaction();
         tx.begin();
         try {
-            Member member = new Member(200L, "member200");
-            em.persist(member);
-            em.flush();
+            Member member = em.find(Member.class,105L);
+            member.setName("AAAAAAA");
+            em.clear();
+            Member member2 = em.find(Member.class,105L);
 
             tx.commit();
         } catch (Exception e) {
