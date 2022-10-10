@@ -6,6 +6,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
+@Table(name="MBR")
 public class Member {
     @Id
     private Long id;
@@ -15,6 +16,9 @@ public class Member {
     }
 
     public Member(long id, String name) {
+        this.id = id;
+        this.name = name;
+
     }
 
     public Long getId() {
