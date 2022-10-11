@@ -13,20 +13,22 @@ import javax.persistence.Persistence;
         EntityTransaction tx = em.getTransaction();
         tx.begin();
         try {
-            Member member1 = new Member();
-            member1.setUsername("A");
+            Team team  = new Team();
+            team.setName("TeamA");
+            em.persist(team);
 
-            Member member2 = new Member();
-            member2.setUsername("B");
+            Member member = new Member();
+            member.setUsername("member1");
+            member.setTeam(team);
 
-            Member member3 = new Member();
-            member3.setUsername("C");
-            em.persist(member1);
-            em.persist(member2);
-            em.persist(member3);
-            System.out.println(member1.getId());
-            System.out.println(member2.getId());
-            System.out.println(member3.getId());
+            member.setTeam(team);
+            em.persist(member);
+
+            em.flush();
+            em.clear();
+
+            Member findMember = em.find(Member.class, member.getId());
+            Team finTeam = findMember.getTeam();
             tx.commit();
         } catch (Exception e) {
             tx.rollback();
