@@ -11,8 +11,6 @@ public class Member {
     private Long id;
     @Column(name = "USERNAME")
     private String username;
-    //    @Column(name = "TEAM_ID")
-//    private Long teamId;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "TEAM_ID")
     private Team team;
@@ -41,8 +39,23 @@ public class Member {
         return team;
     }
 
+    public void changeTeam(Team team) {
+
+        this.team = team;
+        team.getMembers().add((this));
+    }
+
     public void setTeam(Team team) {
         this.team = team;
+    }
+
+    @Override
+    public String toString() {
+        return "Member{" +
+                "id=" + id +
+                ", username='" + username + '\'' +
+                ", team=" + team +
+                '}';
     }
 }
 
