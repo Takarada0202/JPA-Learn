@@ -11,8 +11,8 @@ public class Member {
     private Long id;
     @Column(name = "USERNAME")
     private String username;
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "TEAM_ID")
+    @ManyToOne
+    @JoinColumn(name ="TEAM_ID",insertable = false, updatable = false)
     private Team team;
 
     public Member() {

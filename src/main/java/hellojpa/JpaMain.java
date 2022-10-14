@@ -14,27 +14,13 @@ public class JpaMain {
         EntityTransaction tx = em.getTransaction();
         tx.begin();
         try {
+            Member member = saveMember(em);
+
             Team team = new Team();
-            team.setName("TeamA");
+            team.setName("teamA");
+            team.getMembers().add(member);
             em.persist(team);
-            Member member = new Member();
-            member.setUsername("member1");
-//            team.getMembers().add(member);
-            member.changeTeam(team);
-            em.persist(member);
 
-            team.addMember(member);
-
-            em.flush();
-            em.clear();
-
-            Member findMember = em.find(Member.class, member.getId());
-            Team findTeam = findMember.getTeam();
-            List<Member> members = findMember.getTeam().getMembers();
-
-            for (Member m : members) {
-                System.out.println(findTeam);
-            }
             tx.commit();
         } catch (Exception e) {
             tx.rollback();
@@ -42,5 +28,13 @@ public class JpaMain {
             em.close();
         }
         emf.close();
+    }
+
+    private static Member saveMember(EntityManager em) {
+        Member member = new Member();
+        member.setUsername("member1");
+
+        em.persist(member);
+        return member;
     }
 }
