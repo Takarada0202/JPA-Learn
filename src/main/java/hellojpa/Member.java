@@ -2,7 +2,10 @@ package hellojpa;
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+
 @Entity
 public class Member {
     @Id
@@ -14,6 +17,19 @@ public class Member {
     @ManyToOne
     @JoinColumn(name ="TEAM_ID",insertable = false, updatable = false)
     private Team team;
+
+    @ManyToOne
+    @JoinColumn(name = "locker_ID")
+    private Locker locker;
+
+
+    public Locker getLocker() {
+        return locker;
+    }
+
+    public void setLocker(Locker locker) {
+        this.locker = locker;
+    }
 
     public Member() {
 
