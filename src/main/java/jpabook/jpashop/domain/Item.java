@@ -1,6 +1,8 @@
 package jpabook.jpashop.domain;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 public class Item {
@@ -10,7 +12,10 @@ public class Item {
     private Long id;
     private String  name;
     private int price;
-    private  int stockOuantity;
+    private  int stockQuantity;
+    @ManyToMany(mappedBy = "items")
+    private List<Category> categories = new ArrayList<>();
+
 
     public Long getId() {
         return id;
@@ -36,11 +41,11 @@ public class Item {
         this.price = price;
     }
 
-    public int getStockOuantity() {
-        return stockOuantity;
+    public int getStockQuantity() {
+        return stockQuantity;
     }
 
-    public void setStockOuantity(int stockOuantity) {
-        this.stockOuantity = stockOuantity;
+    public void setStockQuantity(int stockQuantity) {
+        this.stockQuantity = stockQuantity;
     }
 }
