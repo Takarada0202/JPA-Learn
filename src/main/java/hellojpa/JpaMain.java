@@ -14,12 +14,15 @@ public class JpaMain {
         EntityTransaction tx = em.getTransaction();
         tx.begin();
         try {
-            Member member = saveMember(em);
-
-            Team team = new Team();
-            team.setName("teamA");
-            team.getMembers().add(member);
-            em.persist(team);
+                Movie movie = new Movie();
+                movie.setDirector("AAA");
+                movie.setActor("BBB");
+                movie.setName("ccc");
+                movie.setPrice(100);
+                em.persist(movie);
+                em.flush();
+                em.clear();
+                Movie findmove = em.find(Movie.class,movie.getId());
 
             tx.commit();
         } catch (Exception e) {
