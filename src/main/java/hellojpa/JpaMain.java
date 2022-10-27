@@ -19,12 +19,19 @@ public class JpaMain {
                Member member1 = new Member();
                member1.setUsername("member1");
                em.persist(member1);
+
+               Member member2 = new Member();
+               member2.setUsername("member2");
+               em.persist(member2);
+
+               Team team = new Team();
+               team.setName("teamA");
+               em.persist(team);
+
                em.flush();
                em.clear();
 
-               Member refMember = em.getReference(Member.class,member1.getId());
-            System.out.println(refMember.getClass());
-            Hibernate.initialize(refMember);
+               List<Member> members = em.createQuery("slect m from Member m join fetch m.team",Member.class).getResultList();
 
             tx.commit();
         } catch (Exception e) {
