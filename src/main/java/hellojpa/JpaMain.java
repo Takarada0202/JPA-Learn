@@ -1,5 +1,7 @@
 package hellojpa;
 
+import org.hibernate.Hibernate;
+
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
@@ -14,12 +16,15 @@ public class JpaMain {
         EntityTransaction tx = em.getTransaction();
         tx.begin();
         try {
-               Member member = new Member();
-               member.setCreateBy("kim");
-
-               em.persist(member);
+               Member member1 = new Member();
+               member1.setUsername("member1");
+               em.persist(member1);
                em.flush();
                em.clear();
+
+               Member refMember = em.getReference(Member.class,member1.getId());
+            System.out.println(refMember.getClass());
+            Hibernate.initialize(refMember);
 
             tx.commit();
         } catch (Exception e) {
@@ -30,11 +35,10 @@ public class JpaMain {
         emf.close();
     }
 
-    private static Member saveMember(EntityManager em) {
-        Member member = new Member();
-        member.setUsername("member1");
-
-        em.persist(member);
-        return member;
+    private static void printMemberAndTeam(Member member) {
+        String username = member.getUsername();
+        System.out.println(username);
+        Team team = member.getTeam();
+        System.out.println(team.getName());
     }
 }
