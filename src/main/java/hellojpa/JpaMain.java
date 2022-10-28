@@ -16,10 +16,16 @@ public class JpaMain {
         EntityTransaction tx = em.getTransaction();
         tx.begin();
         try {
+               Address address =  new Address("city","street","10000");
+
                Member member = new Member();
-               member.setUsername("hello");
-               member.setHomeAddress(new Address("city","street","zipcode"));
-               member.setWorkPeriod(new Period());
+               member.setUsername("member1");
+               member.setHomeAddress(address);
+               em.persist(member);
+
+               Address newAddress = new Address("NewCity",address.getStreet(), address.getZipcode());
+               member.setHomeAddress(newAddress);
+
 
             tx.commit();
         } catch (Exception e) {
