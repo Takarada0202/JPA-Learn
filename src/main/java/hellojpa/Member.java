@@ -1,5 +1,6 @@
 package hellojpa;
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,31 +12,18 @@ public class Member extends BaseEntity {
     private Long id;
     @Column(name = "USERNAME")
     private String username;
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn
-    private Team team;
-
-    @OneToMany
-    @JoinColumn(name = "locker_ID",insertable = false,updatable = false)
-    private Locker locker;
-
-
-    @OneToMany(mappedBy = "member")
-    private List<MemberProduct> memberProducts = new ArrayList<>();
-
-
-
-    public Locker getLocker() {
-        return locker;
-    }
-
-    public void setLocker(Locker locker) {
-        this.locker = locker;
-    }
-
-    public Member() {
-
-    }
+    @Embedded
+    @AttributeOverrides({
+            @AttributeOverride(name = "city",
+                column = @Column(name = "WORK_CITY")),
+            @AttributeOverride(name = "street",
+                column = @Column(name = "WORK_STREET")),
+            @AttributeOverride(name = "zipcode",
+                column = @Column(name = "WORK_ZIPCODE")),
+    })
+    private Period workPeriod;
+    @Embedded
+    private Address homeAddress;
 
     public Long getId() {
         return id;
@@ -53,27 +41,20 @@ public class Member extends BaseEntity {
         this.username = username;
     }
 
-    public Team getTeam() {
-        return team;
+    public Period getWorkPeriod() {
+        return workPeriod;
     }
 
-    public void changeTeam(Team team) {
-
-        this.team = team;
-        team.getMembers().add((this));
+    public void setWorkPeriod(Period workPeriod) {
+        this.workPeriod = workPeriod;
     }
 
-    public void setTeam(Team team) {
-        this.team = team;
+    public Address getHomeAddress() {
+        return homeAddress;
     }
 
-    @Override
-    public String toString() {
-        return "Member{" +
-                "id=" + id +
-                ", username='" + username + '\'' +
-                ", team=" + team +
-                '}';
+    public void setHomeAddress(Address homeAddress) {
+        this.homeAddress = homeAddress;
     }
 }
 
