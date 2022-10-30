@@ -27,22 +27,6 @@ public class Member extends BaseEntity {
     @JoinColumn(name = "MEMBER_ID")
     private List<AddressEntity> addressHistory = new ArrayList<>();
 
-    public Set<String> getFavoriteFoods() {
-        return favoriteFoods;
-    }
-
-    public void setFavoriteFoods(Set<String> favoriteFoods) {
-        this.favoriteFoods = favoriteFoods;
-    }
-
-    public List<AddressEntity> getAddressHistory() {
-        return addressHistory;
-    }
-
-    public void setAddressHistory(List<AddressEntity> addressHistory) {
-        this.addressHistory = addressHistory;
-    }
-
     public Long getId() {
         return id;
     }
@@ -59,14 +43,28 @@ public class Member extends BaseEntity {
         this.username = username;
     }
 
-
-
     public Address getHomeAddress() {
         return homeAddress;
     }
 
     public void setHomeAddress(Address homeAddress) {
         this.homeAddress = homeAddress;
+    }
+
+    public Set<String> getFavoriteFoods() {
+        return favoriteFoods;
+    }
+
+    public void setFavoriteFoods(Set<String> favoriteFoods) {
+        this.favoriteFoods = favoriteFoods;
+    }
+
+    public List<AddressEntity> getAddressHistory() {
+        return addressHistory;
+    }
+
+    public void setAddressHistory(List<AddressEntity> addressHistory) {
+        this.addressHistory = addressHistory;
     }
 }
 
