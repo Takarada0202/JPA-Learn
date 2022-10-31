@@ -26,7 +26,7 @@ public class JpaMain {
             em.flush();
             em.clear();
 
-            String query = "select m from Member m left join Team t on m.username = t.name";
+            String query = "select mm.age, mm.username" + "from(select m.age,m.username from Member m)as mm";
             List<Member> result = em.createQuery(query,Member.class).getResultList();
             System.out.println("result = " +result.size());
 
