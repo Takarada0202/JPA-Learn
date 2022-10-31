@@ -26,14 +26,11 @@ public class JpaMain {
             em.flush();
             em.clear();
 
-            String query = "select m.username,'HELLO',true From Member m"+"where m.age between 0 and 10";
-            List<Object[]> result = em.createQuery(query).setParameter("userType",MemberType.ADMIN).getResultList();
-            System.out.println("result = " +result.size());
+            String query = "select nullif(m.username,'관리자')as username"+"from Member m ";
+            List<String> result = em.createQuery(query,String.class).getResultList();
 
-            for (Object[] objects :result) {
-                System.out.println("objects = " + objects[0]);
-                System.out.println("objects = " + objects[1]);
-                System.out.println("objects = " + objects[2]);
+            for (String s :result) {
+                System.out.println("s = " +s);
             }
 
 
